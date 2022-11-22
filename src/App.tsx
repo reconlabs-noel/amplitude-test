@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import AmplitudeLoader from "./utils/amplitude";
+import * as AmplitudeEvents from "./utils/amplitudeEvents";
 
 function App() {
   useEffect(() => {
-    AmplitudeLoader.sendEvent("visited_main");
+    AmplitudeLoader.sendEvent(AmplitudeEvents.visitEvent.main);
   }, []);
 
   return (
@@ -19,21 +20,21 @@ function App() {
       </button>
       <button
         onClick={() => {
-          AmplitudeLoader.sendEvent("click-first", { type: "normal", id: AmplitudeLoader.userId });
+          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-first"], { type: "normal", id: AmplitudeLoader.userId });
         }}
       >
         click-first: normal
       </button>
       <button
         onClick={() => {
-          AmplitudeLoader.sendEvent("click-second", { type: "normal", id: AmplitudeLoader.userId });
+          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-second"], { type: "normal", id: AmplitudeLoader.userId });
         }}
       >
         click-second: normal
       </button>
       <button
         onClick={() => {
-          AmplitudeLoader.sendEvent("click-second", { type: "other", id: AmplitudeLoader.userId });
+          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-second"], { type: "other", id: AmplitudeLoader.userId });
         }}
       >
         click-second: other
