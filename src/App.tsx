@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import AmplitudeLoader from "./utils/analyticsInstance";
+import AmplitudeLoader from "./utils/amplitude";
 
 function App() {
   useEffect(() => {
-    AmplitudeLoader.initialize(process.env.REACT_APP_AMPLITUDE_KEY!);
+    AmplitudeLoader.sendEvent("visited_main");
   }, []);
 
   return (
@@ -14,29 +14,37 @@ function App() {
         onClick={() => {
           AmplitudeLoader.setUserId("noel@reconlabs.kr");
         }}
-        data-event-name="click-first"
-        data-event-prop-button-type="normal"
-        data-event-prop-button-color="red"
       >
-        set namju
+        Set UserId
       </button>
       <button
         onClick={() => {
           AmplitudeLoader.sendEvent("click-first", { type: "normal", id: AmplitudeLoader.userId });
         }}
-        data-event-name="click-first"
-        data-event-prop-button-type="normal"
-        data-event-prop-button-color="red"
       >
         click-first: normal
       </button>
-      <button data-event-name="click-second" data-event-prop-button-type="normal">
+      <button
+        onClick={() => {
+          AmplitudeLoader.sendEvent("click-second", { type: "normal", id: AmplitudeLoader.userId });
+        }}
+      >
         click-second: normal
       </button>
-      <button data-event-name="click-second" data-event-prop-button-type="other">
+      <button
+        onClick={() => {
+          AmplitudeLoader.sendEvent("click-second", { type: "other", id: AmplitudeLoader.userId });
+        }}
+      >
         click-second: other
       </button>
-      <button onClick={() => {}}>reset</button>
+      <button
+        onClick={() => {
+          AmplitudeLoader.reset();
+        }}
+      >
+        reset
+      </button>
     </div>
   );
 }
