@@ -1,53 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Main from "./pages/Main";
 import "./App.css";
-import AmplitudeLoader from "./utils/amplitude";
-import * as AmplitudeEvents from "./utils/amplitudeEvents";
+import Second from "./pages/Second";
+import Button from "./pages/Button";
+import PostMessage from "./pages/PostMessage";
+import PostMessageReceive from "./pages/PostMessageReceive";
+import InteractiveBackground from "./pages/InteractiveBackground";
 
-function App() {
-  useEffect(() => {
-    AmplitudeLoader.sendEvent(AmplitudeEvents.visitEvent.main);
-  }, []);
-
+const App = () => {
   return (
-    <div className="App">
-      <div>Amplitude Test</div>
-      <button
-        onClick={() => {
-          AmplitudeLoader.setUserId("noel@reconlabs.kr");
-        }}
-      >
-        Set UserId
-      </button>
-      <button
-        onClick={() => {
-          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-first"], { type: "normal", id: AmplitudeLoader.userId });
-        }}
-      >
-        click-first: normal
-      </button>
-      <button
-        onClick={() => {
-          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-second"], { type: "normal", id: AmplitudeLoader.userId });
-        }}
-      >
-        click-second: normal
-      </button>
-      <button
-        onClick={() => {
-          AmplitudeLoader.sendEvent(AmplitudeEvents.clickEvent["click-second"], { type: "other", id: AmplitudeLoader.userId });
-        }}
-      >
-        click-second: other
-      </button>
-      <button
-        onClick={() => {
-          AmplitudeLoader.reset();
-        }}
-      >
-        reset
-      </button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/second" element={<Second />} />
+        <Route path="/button" element={<Button />} />
+        <Route path="/postMessage" element={<PostMessage />} />
+        <Route path="/postMessage/receive" element={<PostMessageReceive />} />
+        <Route path="/interactivebg" element={<InteractiveBackground />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
